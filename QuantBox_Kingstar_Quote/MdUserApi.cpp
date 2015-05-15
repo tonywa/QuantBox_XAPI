@@ -7,7 +7,6 @@
 #include "../include/ApiStruct.h"
 
 #include "../include/toolkit.h"
-#include "../QuantBox_Kingstar_Trade/TypeConvert.h"
 
 #include "../QuantBox_Queue/MsgQueue.h"
 
@@ -474,7 +473,7 @@ void CMdUserApi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMark
 
 	sprintf(pField->Symbol, "%s.%s", pField->InstrumentID, pDepthMarketData->ExchangeID);
 
-	// 交易时间
+	//m_TradingDay
 	switch (pField->Exchange)
 	{
 	case ExchangeType::DCE:
@@ -482,11 +481,7 @@ void CMdUserApi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMark
 			, &pField->TradingDay, &pField->ActionDay, &pField->UpdateTime, &pField->UpdateMillisec);
 		break;
 	case ExchangeType::CZCE:
-		GetExchangeTime_CZCE(m_TradingDay, pDepthMarketData->TradingDay, pDepthMarketData->ActionDay, pDepthMarketData->UpdateTime
-			, &pField->TradingDay, &pField->ActionDay, &pField->UpdateTime, &pField->UpdateMillisec);
-		break;
-	case ExchangeType::Undefined_:
-		GetExchangeTime_Undefined(m_TradingDay, pDepthMarketData->TradingDay, pDepthMarketData->ActionDay, pDepthMarketData->UpdateTime
+		GetExchangeTime_CZC(m_TradingDay, pDepthMarketData->TradingDay, pDepthMarketData->ActionDay, pDepthMarketData->UpdateTime
 			, &pField->TradingDay, &pField->ActionDay, &pField->UpdateTime, &pField->UpdateMillisec);
 		break;
 	default:
